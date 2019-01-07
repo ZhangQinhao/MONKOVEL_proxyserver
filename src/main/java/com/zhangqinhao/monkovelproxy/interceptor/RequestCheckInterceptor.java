@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URLDecoder;
 import java.util.Arrays;
 
 /**
@@ -44,6 +45,11 @@ public class RequestCheckInterceptor extends BaseInterceptor implements HandlerI
             if (StringUtil.isEmpty(proxyPackagename)) {
                 reponse(httpServletResponse, "已经开启请求验证，缺失proxyPackagename");
                 return false;
+            }
+            try {
+                proxyPackagename = URLDecoder.decode(proxyPackagename,"utf-8");
+            }catch (Exception e){
+
             }
             try {
                 String decodeContent = AESUtil.aesDecode(proxyPackagename, AESkey);
