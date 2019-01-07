@@ -5,7 +5,7 @@ import com.zhangqinhao.monkovelproxy.CheckRequestKeyManager;
 import com.zhangqinhao.monkovelproxy.annot.Clear;
 import com.zhangqinhao.monkovelproxy.util.StringUtil;
 import com.zhangqinhao.monkovelproxy.util.aes.AESUtil;
-import org.springframework.messaging.handler.HandlerMethod;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
