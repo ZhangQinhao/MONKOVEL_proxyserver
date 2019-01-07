@@ -1,9 +1,12 @@
 package com.zhangqinhao.monkovelproxy.controller.client;
 
+import com.zhangqinhao.monkovelproxy.annot.Clear;
 import com.zhangqinhao.monkovelproxy.bean.BaseResponse;
 import com.zhangqinhao.monkovelproxy.controller.BaseController;
+import com.zhangqinhao.monkovelproxy.interceptor.RequestCheckInterceptor;
 import com.zhangqinhao.monkovelproxy.util.HttpKit;
 import com.zhangqinhao.monkovelproxy.util.StringUtil;
+import com.zhangqinhao.monkovelproxy.util.aes.AESUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,6 +78,36 @@ public class RequestProxyController extends BaseController {
             return result;
         }catch (Exception e){
             return null;
+        }
+    }
+
+    @RequestMapping(value = "/client/aesencode" ,produces = "text/html; charset=utf-8")
+    @Clear(RequestCheckInterceptor.class)
+    @ResponseBody
+    public String aesEncode(@RequestParam(value = "key") String key,@RequestParam(value = "content") String content) {
+        try {
+            try{
+                content = URLDecoder.decode(content,"utf-8");
+            }catch (Exception e){
+            }
+            return AESUtil.aesEncode(content,key);
+        }catch (Exception e){
+            return "加密失败  "+e.toString();
+        }
+    }
+
+    @RequestMapping(value = "/client/aesdecode" ,produces = "text/html; charset=utf-8")
+    @Clear(RequestCheckInterceptor.class)
+    @ResponseBody
+    public String aesDecode(@RequestParam(value = "key") String key,@RequestParam(value = "content") String content) {
+        try {
+            try{
+                content = URLDecoder.decode(content,"utf-8");
+            }catch (Exception e){
+            }
+            return AESUtil.aesDecode(content,key);
+        }catch (Exception e){
+            return "解密失败  "+e.toString();
         }
     }
 }
