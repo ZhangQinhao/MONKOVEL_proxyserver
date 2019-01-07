@@ -36,7 +36,7 @@ public class RequestCheckInterceptor extends BaseInterceptor implements HandlerI
             try{
                 String decodeContent = AESUtil.aesDecode(proxyPackagename,AESkey);
                 //解码后根据*分割，将*号后部分存储，校验遍历，使用过一次的proxyPackagename则不允许再使用，这里使用Hashmap今后可以使用数据库存储
-                if(decodeContent==null|| decodeContent.length()==0 || !decodeContent.substring(0,decodeContent.indexOf("*")).equals(packageName)){
+                if(decodeContent==null|| decodeContent.length()==0 || !decodeContent.startsWith(packageName)){
                     reponse(httpServletResponse,"已经开启请求验证，校验未通过");
                     return false;
                 }else{
