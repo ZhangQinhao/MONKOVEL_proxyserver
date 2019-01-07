@@ -81,7 +81,7 @@ public class RequestProxyController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/client/aesencode" ,produces = "text/html; charset=utf-8")
+    @RequestMapping(value = "aesencode" ,produces = "text/html; charset=utf-8")
     @Clear(RequestCheckInterceptor.class)
     @ResponseBody
     public String aesEncode(@RequestParam(value = "key") String key,@RequestParam(value = "content") String content) {
@@ -96,7 +96,7 @@ public class RequestProxyController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/client/aesdecode" ,produces = "text/html; charset=utf-8")
+    @RequestMapping(value = "aesdecode" ,produces = "text/html; charset=utf-8")
     @Clear(RequestCheckInterceptor.class)
     @ResponseBody
     public String aesDecode(@RequestParam(value = "key") String key,@RequestParam(value = "content") String content) {
