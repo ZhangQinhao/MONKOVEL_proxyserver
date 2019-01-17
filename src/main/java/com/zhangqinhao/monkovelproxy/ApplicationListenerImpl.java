@@ -61,7 +61,7 @@ public class ApplicationListenerImpl implements ServletContextListener {
         }
     }
     public static void setConfigBoolean(String key,boolean value){
-        configMap.put(key,value);
+        configMap.put(key,Boolean.toString(value));
     }
 
     public static Integer getConfigInt(String key){
@@ -76,6 +76,6 @@ public class ApplicationListenerImpl implements ServletContextListener {
         }
     }
     public static void setConfigInt(String key,Integer value){
-        configMap.put(key,value);
+        configMap.put(key,value==null?null:Integer.toString(value));
     }
 }
