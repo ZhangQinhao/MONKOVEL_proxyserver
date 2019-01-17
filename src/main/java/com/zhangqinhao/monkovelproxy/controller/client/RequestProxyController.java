@@ -79,7 +79,7 @@ public class RequestProxyController extends BaseController {
             }
             return result;
         }catch (Exception e){
-            return null;
+            return e.getMessage();
         }
     }
 
