@@ -1,5 +1,7 @@
 package com.zhangqinhao.monkovelproxy.controller.client;
 
+import com.zhangqinhao.monkovelproxy.ApplicationListenerImpl;
+import com.zhangqinhao.monkovelproxy.CheckRequestKeyManager;
 import com.zhangqinhao.monkovelproxy.annot.Clear;
 import com.zhangqinhao.monkovelproxy.bean.BaseResponse;
 import com.zhangqinhao.monkovelproxy.controller.BaseController;
@@ -109,5 +111,50 @@ public class RequestProxyController extends BaseController {
         }catch (Exception e){
             return "解密失败  "+e.toString();
         }
+    }
+
+    /**
+     * 在线修改是否开启代理请求校验
+     * @param key
+     * @param check
+     * @return
+     */
+    @RequestMapping(value = "request_state" ,produces = "text/html; charset=utf-8")
+    @ResponseBody
+    public String changeRequestCheckState(@RequestParam(value = "aesKey") String key,@RequestParam(value = "check") boolean check){
+        if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
+            return "操作验证不通过";
+        }
+        ApplicationListenerImpl.setConfigBoolean("checkState",check);
+        return "状态修改成功";
+    }
+
+    /**
+     * 清除历史校验key
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "clean_historykey" ,produces = "text/html; charset=utf-8")
+    @ResponseBody
+    public String cleanHistoryKey(@RequestParam(value = "aesKey") String key){
+        if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
+            return "操作验证不通过";
+        }
+        CheckRequestKeyManager.getInstance().clean();
+        return "清除成功";
+    }
+
+    /**
+     * 获取历史校验key缓存数量
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "count_historykey" ,produces = "text/html; charset=utf-8")
+    @ResponseBody
+    public String countHistoryKey(@RequestParam(value = "aesKey") String key){
+        if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
+            return "操作验证不通过";
+        }
+        return "目前缓存共有 "+CheckRequestKeyManager.getInstance().getSize()+" 条历史校验key";
     }
 }

@@ -1,11 +1,8 @@
 package com.zhangqinhao.monkovelproxy;
 
-import org.apache.logging.log4j.util.PropertiesUtil;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +45,9 @@ public class ApplicationListenerImpl implements ServletContextListener {
             return value;
         }
     }
+    public static void setConfigStr(String key, String value){
+        configMap.put(key,value);
+    }
 
     public static Boolean getConfigBoolean(String key){
         return getConfigBoolean(key,false);
@@ -60,6 +60,9 @@ public class ApplicationListenerImpl implements ServletContextListener {
             return value;
         }
     }
+    public static void setConfigBoolean(String key,boolean value){
+        configMap.put(key,value);
+    }
 
     public static Integer getConfigInt(String key){
         return getConfigInt(key,null);
@@ -71,5 +74,8 @@ public class ApplicationListenerImpl implements ServletContextListener {
         }else{
             return value;
         }
+    }
+    public static void setConfigInt(String key,Integer value){
+        configMap.put(key,value);
     }
 }

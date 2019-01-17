@@ -6,7 +6,7 @@ public class CheckRequestKeyManager {
     private static CheckRequestKeyManager instance = null;
     private static LRULinkedHashMap<String,Integer> data;
     private CheckRequestKeyManager(){
-        data = new LRULinkedHashMap<String, Integer>(100000);
+        data = new LRULinkedHashMap<String, Integer>(10000);
     }
     public static CheckRequestKeyManager getInstance(){
         if(instance==null){
@@ -29,5 +29,13 @@ public class CheckRequestKeyManager {
 
     public void setKey(String key){
         data.put(key,1);
+    }
+
+    public void clean(){
+        data.clear();
+    }
+
+    public int getSize(){
+        return data.size();
     }
 }
