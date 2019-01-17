@@ -120,6 +120,7 @@ public class RequestProxyController extends BaseController {
      * @return
      */
     @RequestMapping(value = "request_state" ,produces = "text/html; charset=utf-8")
+    @Clear(RequestCheckInterceptor.class)
     @ResponseBody
     public String changeRequestCheckState(@RequestParam(value = "aesKey") String key,@RequestParam(value = "check") boolean check){
         if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
@@ -135,6 +136,7 @@ public class RequestProxyController extends BaseController {
      * @return
      */
     @RequestMapping(value = "clean_historykey" ,produces = "text/html; charset=utf-8")
+    @Clear(RequestCheckInterceptor.class)
     @ResponseBody
     public String cleanHistoryKey(@RequestParam(value = "aesKey") String key){
         if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
@@ -150,6 +152,7 @@ public class RequestProxyController extends BaseController {
      * @return
      */
     @RequestMapping(value = "count_historykey" ,produces = "text/html; charset=utf-8")
+    @Clear(RequestCheckInterceptor.class)
     @ResponseBody
     public String countHistoryKey(@RequestParam(value = "aesKey") String key){
         if(!ApplicationListenerImpl.getConfigStr("AESkey").equals(key)){
